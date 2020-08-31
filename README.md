@@ -22,7 +22,7 @@ Our dataset is a collection of quarterly financial data of individual banks betw
 
 ## 4. Preprocessing
 
-#### a. After calculation, we have the following features: 
+### a. After calculation, we have the following features: 
 1) Quarterly Financial Data: 
 Total Assets (TA), Net Income to TA, Equity to TA, ROA, Core Deposits to TA
 Non-performing Loan (NPL) to Total Loan (TL), Loss Provision to_TL, Allowance for Loan and Lease Losses (ALLL) to TL
@@ -30,7 +30,7 @@ Non-performing Loan (NPL) to Total Loan (TL), Loss Provision to_TL, Allowance fo
 2) Quarterly Macro Data:
 Term Spread, Stock Mkt Growth, Real Gdp Growth, Unemployment Rate Change, Treasury Yield 3M, BBB Spread.
 
-#### b. Split the banks by the time of the bank failure. The banks that failed before 2011 will belong to the train dataset; the banks that failed between 2011 and 2012 will belong to the validation dataset; the banks that failed after 2012 will belong to the test dataset. 
+### b. Split the banks by the time of the bank failure. The banks that failed before 2011 will belong to the train dataset; the banks that failed between 2011 and 2012 will belong to the validation dataset; the banks that failed after 2012 will belong to the test dataset. 
 
 As a result, we have 326 banks in train, 66 banks in validation and 70 banks in test. 
 
@@ -41,7 +41,7 @@ Extract the data according to Bank ID Index for Train/Validation/Test datasets.
 
 ![GitHub Logo](/images/prep2.png)
 
-c. For each bank, organize the features and the label. Each data record has 1-year financial indicators as features and the label, which is whether the bank will fail in the next quarter.
+### c. For each bank, organize the features and the label. Each data record has 1-year financial indicators as features and the label, which is whether the bank will fail in the next quarter.
 
 ![GitHub Logo](/images/prep3.png)
 
@@ -49,21 +49,21 @@ c. For each bank, organize the features and the label. Each data record has 1-ye
 
 ![GitHub Logo](/images/prep5.png)
 
-d. As a result, we will finally get our final train, validation and test dataset. 
+### d. As a result, we will finally get our final train, validation and test dataset. 
 
 ![GitHub Logo](/images/prep6.png)
 
-5. Modelling
+## 5. Modelling
 
-5.1 Machine Learning
+### 5.1 Machine Learning
 
 The below tables show the general steps for machine learning approaches:
 
 ![GitHub Logo](/images/ml0.png)
 
-5.1.1 Feature Engineering
+#### 5.1.1 Feature Engineering
 
-A.	Log / Scaling
+##### A.	Log / Scaling
 After reviewing the scaling of our features, we found that “Max_total_asset” was much larger than other features. Thus, we firstly used “log1p” to compute the log (Max_total_asset + 1). 
 We also tried the scaling technique, such as MinMaxScaler. However, the results showed that the unscaled dataset performed better than the scaled ones. 
 
@@ -72,7 +72,7 @@ In machine learning, the models we used could not take the time series relations
 
 ![GitHub Logo](/images/ml1.png)
 
-Figure 1: Feature Engineering
+##### Figure 1: Feature Engineering
 
 Take the metric “NI_To_TA” for example. After preprocessing, each data point consists of 4 quarters’ records, including “NI_To_TA_1”, “NI_To_TA_2”, “NI_To_TA_3” and “NI_To_TA_4”. Thus, we computed the quarterly change from 1st quarter to 2nd quarter, from 2nd quarter to 3rd quarter, from 3rd quarter to 4th quarter. 
 
