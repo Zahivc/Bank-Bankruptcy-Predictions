@@ -207,7 +207,7 @@ Using threshold 0.9 from validation output:
  
 Figure 11: Test results with threshold 0.9
 
-6. Model Evaluation
+## 6. Model Evaluation
 
 In our evaluation metrics, we have Recall, Precision, ROC AUC score and F2 Score. F2 score is computed as:
 
