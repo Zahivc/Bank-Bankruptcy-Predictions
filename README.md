@@ -156,4 +156,29 @@ Although the machine learning approach already gave us a fairly good result, the
 Given the limitations of machine learning approaches, our second approach was deep learning, using LSTM to uncover more relationship that could not be considered in machine learning approaches.  
 
 
+### 5.2. LSTM
+
+LSTM model provides the ability to deal with time sequence data by its feedback connections. In order to feed the data into LSTM model. We need to reshape the data into three dimensions. In our dataset, there are four timesteps each with 22 features. Therefore, several data preprocessing steps are required. The details are elaborated as below.
+
+#### 5.2.1. Detailed Steps 
+
+##### a. Oversampling
+
+There is always an imbalanced issue in corporate bankruptcy dataset. Fortunately, it is proved that the neural network performs well in bankruptcy prediction with equal numbers of examples in the learning phase [1]. Therefore, the oversampling algorithm - SMOTE was employed to tackle the data imbalance issue.
+
+##### b. Reshape and Normalization
+
+Reshape the train, validation and test data to 3 demensions – (Observation, Timestep, Feature) to satisfy the model requirements, convert the response variable y to integer and normalize the predictor variable x by MinMaxScaler.
+
+#### c. Model Structure
+ 
+1.	4 LSTM layers, with 128, 64, 32, 16 neurons.
+2.	Use “relu” as the activation function.
+3.	Dense layer with 1 neuron as the output of the model  
+4.	Dropout rate = 0.5 to avoid overfitting.
+5.	Set up the epoch to 4 to avoid overfitting.
+
+
+
+
 
