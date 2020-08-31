@@ -166,11 +166,17 @@ LSTM model provides the ability to deal with time sequence data by its feedback 
 
 There is always an imbalanced issue in corporate bankruptcy dataset. Fortunately, it is proved that the neural network performs well in bankruptcy prediction with equal numbers of examples in the learning phase [1]. Therefore, the oversampling algorithm - SMOTE was employed to tackle the data imbalance issue.
 
+![GitHub Logo](/images/LSTM1.png)
+
 ##### b. Reshape and Normalization
 
 Reshape the train, validation and test data to 3 demensions – (Observation, Timestep, Feature) to satisfy the model requirements, convert the response variable y to integer and normalize the predictor variable x by MinMaxScaler.
 
+![GitHub Logo](/images/LSTM2.png)
+
 #### c. Model Structure
+
+![GitHub Logo](/images/LSTM3.png)
  
 1.	4 LSTM layers, with 128, 64, 32, 16 neurons.
 2.	Use “relu” as the activation function.
@@ -178,7 +184,56 @@ Reshape the train, validation and test data to 3 demensions – (Observation, Ti
 4.	Dropout rate = 0.5 to avoid overfitting.
 5.	Set up the epoch to 4 to avoid overfitting.
 
+#### 5.2.2. LSTM Results and Evaluation
 
+Model summary:
 
+![GitHub Logo](/images/LSTM4.png)
+ 
+Figure 9: Model Summary
+Model output:
 
+##### 1. Validation data
+Try different thresholds from 0.1 to 1 to see if there is any improvement to the model performance. After comparison, we chose 0.9 because the F2 score outperformed other thresholds as below: 
 
+![GitHub Logo](/images/LSTM5.png)
+ 
+Figure 10:Validation Results with threshold 0.9
+
+##### 2. Testing data
+Using threshold 0.9 from validation output:
+
+![GitHub Logo](/images/LSTM6.png)
+ 
+Figure 11: Test results with threshold 0.9
+
+6. Model Evaluation
+
+In our evaluation metrics, we have Recall, Precision, ROC AUC score and F2 Score. F2 score is computed as:
+
+![GitHub Logo](/images/LSTM7.png)
+
+F2 score weighs recall twice as high as precision, which makes F2 score more suitable in bank failure application where it is more important to classify correctly as many positive samples as possible, rather than maximizing the number of correct classifications. Therefore, F2 score is our final model evaluation criterion.
+
+![GitHub Logo](/images/LSTM8.png)
+
+Table 2: Model Evaluations
+In the stacking model, we used Random Forest and Logistic Regression as our base classifiers and used Logistic Regression as our final classifier. Comparing this stacking model against the deep learning model that we have done with LSTM, we can see that stacking outperforms LSTM in every criterion, of which F2 score of stacking is 0.11 higher than LSTM. Its recall score is at 0.9, which is the True Positive/ True Positive + False Negative, therefore maximizing the positive samples proportionate against false negatives. 
+
+While stacking has the highest F2 score, there is also lower model explainability as multiple base models were used, therefore lowering the significance of feature importance. As for LSTM, the data may not be detailed and comprehensive enough to train a good LSTM model, as some banks only have 2-3 years of data for training, therefore lowering its F2 score.
+
+## 7. Limitations 
+
+There are several challenges that we encountered in the modelling. Firstly, our dataset contains of banks’ call report throughout 2001-2015, with the indicator of failure in that quarter. However, given that there are numerous external factors, such as political influence, state where the bank has strong presence in, the asset diversification proportion of the bank, these external factors can not all be captured. Besides, the bank failures also occurs at different timing, therefore even macro-factors may be different in different years.
+
+Secondly, in our feature engineering, we have chosen to use 1 year of data preceding the failure to add additional features. However, there may be time lags between the true deterioration of the bank’s performance, that may have started 2 or 3 years ago. With our methodology, we are unable to capture this deterioration ahead of time. We have also chosen the most recent 1 year, which does not give the bank enough time to react to a possible failure. 
+
+Thirdly, the dataset is inherently imbalanced, with the number of failed banks only taking up 4.3% of all banks in the dataset. Therefore, there is an inherent bias towards the majority set, making our job to predict the minority set more difficult. While we have used oversampling methods such as SMOTE and feature engineered to use only banks that have ultimately failed, we have to acknowledge that the dataset can be improved.
+
+## 8. Future Work
+
+Some of the future work and improvement of this project can be focused on working on a larger dataset that stretches further back, as time-series methods such as LSTM requires a longer time series to improve accuracy. On the same point, we can also improve our feature engineering, predicting up to 3 years instead of just 1-year preceding, therefore capturing more of the trend leading up to the failure. 
+
+Separately, we can also try to implement this on a local context, such as Singaporean banks, to find the similarities in the banking industry and the differences in terms of feature importance, how these features will affect bank survivals. Implementing the model for Singaporean banks will also reduce the number of external factors difference, due to the city-state nature of Singapore, there is minimal differences of external influences in Singapore.
+
+Lastly, if the model is to be implemented, it will also be better to put in a buffer period for banks and the state insurance corporation (FDIC) to react, such as to predict the bank is to fail in the next year instead of quarter, therefore giving them time to improve on their financial metrics. 
