@@ -240,5 +240,5 @@ Lastly, if the model is to be implemented, it will also be better to put in a bu
 
 ## 9. Reference
 
-[1] Ligang Zhou. Performance of corporate bankruptcy prediction models on imbalanced dataset: The effect of sampling methods
+[1] Ligang Zhou. Performance of corporate bankruptcy prediction models on imbalanced dataset: The effect of sampling methods.
 
