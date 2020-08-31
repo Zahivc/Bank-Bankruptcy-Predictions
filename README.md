@@ -22,7 +22,7 @@ Our dataset is a collection of quarterly financial data of individual banks betw
 
 ## 4. Preprocessing
 
-### a. After calculation, we have the following features: 
+a. After calculation, we have the following features: 
 1) Quarterly Financial Data: 
 Total Assets (TA), Net Income to TA, Equity to TA, ROA, Core Deposits to TA
 Non-performing Loan (NPL) to Total Loan (TL), Loss Provision to_TL, Allowance for Loan and Lease Losses (ALLL) to TL
@@ -30,7 +30,7 @@ Non-performing Loan (NPL) to Total Loan (TL), Loss Provision to_TL, Allowance fo
 2) Quarterly Macro Data:
 Term Spread, Stock Mkt Growth, Real Gdp Growth, Unemployment Rate Change, Treasury Yield 3M, BBB Spread.
 
-### b. Split the banks by the time of the bank failure. The banks that failed before 2011 will belong to the train dataset; the banks that failed between 2011 and 2012 will belong to the validation dataset; the banks that failed after 2012 will belong to the test dataset. 
+b. Split the banks by the time of the bank failure. The banks that failed before 2011 will belong to the train dataset; the banks that failed between 2011 and 2012 will belong to the validation dataset; the banks that failed after 2012 will belong to the test dataset. 
 
 As a result, we have 326 banks in train, 66 banks in validation and 70 banks in test. 
 
@@ -41,7 +41,7 @@ Extract the data according to Bank ID Index for Train/Validation/Test datasets.
 
 ![GitHub Logo](/images/prep2.png)
 
-### c. For each bank, organize the features and the label. Each data record has 1-year financial indicators as features and the label, which is whether the bank will fail in the next quarter.
+c. For each bank, organize the features and the label. Each data record has 1-year financial indicators as features and the label, which is whether the bank will fail in the next quarter.
 
 ![GitHub Logo](/images/prep3.png)
 
@@ -49,7 +49,7 @@ Extract the data according to Bank ID Index for Train/Validation/Test datasets.
 
 ![GitHub Logo](/images/prep5.png)
 
-### d. As a result, we will finally get our final train, validation and test dataset. 
+d. As a result, we will finally get our final train, validation and test dataset. 
 
 ![GitHub Logo](/images/prep6.png)
 
@@ -67,7 +67,7 @@ The below tables show the general steps for machine learning approaches:
 After reviewing the scaling of our features, we found that “Max_total_asset” was much larger than other features. Thus, we firstly used “log1p” to compute the log (Max_total_asset + 1). 
 We also tried the scaling technique, such as MinMaxScaler. However, the results showed that the unscaled dataset performed better than the scaled ones. 
 
-B.	Feature Generation: Compute the Quarterly Change
+#### B.	Feature Generation: Compute the Quarterly Change
 In machine learning, the models we used could not take the time series relationship into consideration. Thus, we aimed to add some time series information by computing the quarterly change of each metric. The function “feature_generate” was defined as below: 
 
 ![GitHub Logo](/images/ml1.png)
@@ -76,16 +76,16 @@ In machine learning, the models we used could not take the time series relations
 
 Take the metric “NI_To_TA” for example. After preprocessing, each data point consists of 4 quarters’ records, including “NI_To_TA_1”, “NI_To_TA_2”, “NI_To_TA_3” and “NI_To_TA_4”. Thus, we computed the quarterly change from 1st quarter to 2nd quarter, from 2nd quarter to 3rd quarter, from 3rd quarter to 4th quarter. 
 
-5.1.2 Machine Learning Modelling
+#### 5.1.2 Machine Learning Modelling
 
 In the modelling part, we choose 4 methods in total, including Logistic Regression, Random Forest, Gradient Boosting and Stacking. Logistic Regression serves as a baseline model in this project. Random Forest, Gradient Boosting and Stacking represent three important types of ensemble models. 
 
-A.	Logistic Regression
+#### A.	Logistic Regression
 1)	Hyper-parameter Tuning: The only hyperparameter we tuned for logistic regression is “C”, which represents the inverse of regularization strength. We used GridSearchCV to do the cross validation and search for the best parameter. The scoring metric we used in GridSearchCV is “roc_auc” because we believe ROC AUC score serves as a good metric for model evaluation for imbalanced dataset. 
 
 ![GitHub Logo](/images/ml2.png)
 
-Figure 2: Hyper-parameter Tuning
+##### Figure 2: Hyper-parameter Tuning
 
 The result from GridSearchCV showed that the best parameter for Logistic Regression is C = 0.1 when ROC_AUC Score is 0.95. 
 2)	Model Training Using Best Parameter: After we had the best parameter, we re-trained the model with the best parameter (C = 0.1) using the whole train dataset. 
@@ -94,13 +94,13 @@ The result from GridSearchCV showed that the best parameter for Logistic Regress
  
 ![GitHub Logo](/images/ml3.png)
 
-Figure 3: Threshold Tuning
+##### Figure 3: Threshold Tuning
 4)	Feature Importance: The below bar chart showed the top features with greatest absolute coefficients. The result showed that the general accounting metrics, such as Equity to TA, Max Total Asset, contribute most to the model prediction. Besides, macro-economic indicators, such as 3-month Treasury Yield, unemployment rate change, and BBB Spread, influence the prediction greatly.
 
 ![GitHub Logo](/images/ml4.png)
  
-Figure 4: Feature Importance (Log Regression)
-B.	Random Forest 
+##### Figure 4: Feature Importance (Log Regression)
+#### B.	Random Forest 
 1) Hyper-parameter Tuning: To tune the hyper-parameter for Random Forest, we used RandomizedSearchCV because it is generally quicker compared with GridSearchCV if we want to try various combinations of hyper-parameters. In terms of parameter distributions, we consider the following:
 •	“n_estimators”: The parameter specifies the number of trees used in the forest of the model. Here we tried 100, 325, 550, 775, 1000. 
 •	“max_features”: The parameter specifies the number of features to consider. “auto” means sqrt (n_features). 
@@ -111,42 +111,42 @@ B.	Random Forest
 ![GitHub Logo](/images/ml5.png)
 ![GitHub Logo](/images/ml6.png) 
 
-Figure 5: Random Forest
+##### Figure 5: Random Forest
 According to the result of RandomizedSearchCV, the best parameters were shown as below:
  
 ![GitHub Logo](/images/ml7.png) 
 
-Figure 6: Best Parameters
+##### Figure 6: Best Parameters
 After we had the best parameters, we re-trained the Random Forest model and tuned the threshold. The threshold we chose was i = 0.3. 
 2) Feature Importance: The below bar chart showed the most important features that contributed to the Random Forest model. Similar to Logistic Regression model, the most significant feature in Random Forest model was still Equity to TA; also, metrics relating to 3M Treasury Yield were very important in the Random Forest model. Still, Random Forest model seemed to value the loan-related metrics more compared with Logistic Regression model since NPL_To_TL and ALLL_To_TL contributed greatly to the prediction. 
 
 ![GitHub Logo](/images/ml8.png)  
 
-Figure 7: Feature Importance: Random Forest
-C.	Gradient Boosting
+##### Figure 7: Feature Importance: Random Forest
+#### C.	Gradient Boosting
 1) Hyper-parameter Tuning: We didn’t use GridSearchCV or RandomizedSearchCV when tuning hyper-parameters for the Gradient Boosting model because the two exhaustive methods were very time-consuming. Here we manually tuned two hyper-parameters, “n_estimators” and “learning_rate”. After tuning we decided to use n_estimators = 50 and learning_rate = 0.1. The threshold we used for Gradient Boosting was 0.2. 
 
-![GitHub Logo](/images/ml9.png) 
+##### ![GitHub Logo](/images/ml9.png) 
 
 2) Feature Importance: The top features of Gradient Boosting model were similar to Random Forest model. Still, in Gradient Boosting model, the feature “Equity_To_TA_Q4” dominated among the features.  
 
 ![GitHub Logo](/images/ml10.png) 
 
-Figure 8: Feature Importance: Gradient Boosting
-D.	Stacking Model 
+##### Figure 8: Feature Importance: Gradient Boosting
+#### D.	Stacking Model 
 In Stacking model, we used Random Forest and Logistic Regression as our base classifiers and used Logistic Regression as our final classifier. 
 Similar to Gradient Boosting, it is very time-consuming to use exhaustive methods to tune the hyper-parameters. Therefore, we also tuned the hyper-parameters manually. The main hyper-parameter we tried was the “n_estimators” of the base model Random Forest. Eventually we chose n_estimators = 200. The threshold we used was i = 0.2. 
 
 ![GitHub Logo](/images/ml11.png) 
 
-5.1.3. Model Results and Evaluations 
+#### 5.1.3. Model Results and Evaluations 
 
 After we got the models, we applied the four models to the test dataset. The results were reported below:
 Evaluation Metric	Logistic Regression	Random Forest	Gradient Boosting	Stacking
 
 ![GitHub Logo](/images/model_comparison.png) 
 
-Table 1: Evaluation Metrics
+##### Table 1: Evaluation Metrics
 
 In terms of ROC AUC Score, Random Forest and Stacking perform slightly better than the other two models. If we look at F2 score, which provides a more balanced view of Recall and Precision, stacking model performs best. In general, all the models are better at Recall than Precision, which means the models are better at capturing the true positives but may have many false positives.
 
