@@ -176,7 +176,7 @@ Reshape the train, validation and test data to 3 demensions – (Observation, Ti
 
 #### c. Model Structure
 
-![GitHub Logo](/images/LSTM3.png)
+![GitHub Logo](/images/LSTM_model.png)
  
 1.	4 LSTM layers, with 128, 64, 32, 16 neurons.
 2.	Use “relu” as the activation function.
