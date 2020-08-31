@@ -144,7 +144,7 @@ Similar to Gradient Boosting, it is very time-consuming to use exhaustive method
 After we got the models, we applied the four models to the test dataset. The results were reported below:
 Evaluation Metric	Logistic Regression	Random Forest	Gradient Boosting	Stacking
 
-![GitHub Logo](/images/model_comparison) 
+![GitHub Logo](/images/model_comparison.png) 
 
 Table 1: Evaluation Metrics
 
