@@ -2,7 +2,7 @@
 Bank bankruptcy predictions of FDIC bank failure data with time sequence data, SMOTE oversampling preprocessing and LSTM, ensemble modelling.
 
 
-1. Introduction
+## 1. Introduction
 
 The collapse of Lehman Brothers in 2008 caused shockwaves worldwide, resulting in the Dow Jones to have a single-day 4.4% drop, the biggest plunge since the September 11 attacks. It also resulted in huge losses across money funds and hedge funds, and resulted in many investors losing their money, and for some investors, losing their life savings. It was devasting for millions of people across the globe, and our group intends to build a model to predict such bank failures and pre-empt any investors and help them make more prudent investments.
 
