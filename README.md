@@ -236,4 +236,9 @@ Some of the future work and improvement of this project can be focused on workin
 
 Separately, we can also try to implement this on a local context, such as Singaporean banks, to find the similarities in the banking industry and the differences in terms of feature importance, how these features will affect bank survivals. Implementing the model for Singaporean banks will also reduce the number of external factors difference, due to the city-state nature of Singapore, there is minimal differences of external influences in Singapore.
 
-Lastly, if the model is to be implemented, it will also be better to put in a buffer period for banks and the state insurance corporation (FDIC) to react, such as to predict the bank is to fail in the next year instead of quarter, therefore giving them time to improve on their financial metrics. 
+Lastly, if the model is to be implemented, it will also be better to put in a buffer period for banks and the state insurance corporation (FDIC) to react, such as to predict the bank is to fail in the next year instead of quarter, therefore giving them time to improve on their financial metrics.
+
+## 9. Reference
+
+[1] Ligang Zhou. Performance of corporate bankruptcy prediction models on imbalanced dataset: The effect of sampling methods
+
