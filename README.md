@@ -8,21 +8,21 @@ The collapse of Lehman Brothers in 2008 caused shockwaves worldwide, resulting i
 
 To do this, our group will be focusing on the banks in the United States of America (USA), the largest financial market globally. USA has set up an independent federal agency, the Federal Deposit Insurance Corporation (FDIC) in 1933, to maintain stability and public’s confidence in the country’s financial system. The FDIC provides deposit insurance for US-based commercial banks and charges them insurance premium according to an internal (non-public) rating based on the CAMELS supervisory rating system. Whenever a FDIC-insured bank fails, FDIC ensures the bank’s customers has prompt access to their insured deposits. A bank is considered is considered to have failed when it is closed by the federal or state banking regulatory, generally due to the bank being unable to meet its obligations to depositors or others.
 
-2. Business Tasks 
+## 2. Business Tasks 
 
 Our group aims to build a Classification Predictor, to predict if a bank likely to fail the next quarter based on 1-year financial ratios and other macro-economical attributes. Our model will also interpret the classifier and tell the user which factors contribute most to the predicted results. 
 
 We believe this model can be used as an early warning system for regulators and the investors, which would help regulators in their policy making and help investors making the best choices of whether or not to invest in a bank stock or to invests in funds with huge exposures to the bank stocks. Our model can also be used by banks to decide the creditworthiness of another bank to decide the interbank lending rate. Additionally, our models can be used by banks to improve the bank’s own internal rating models.
 
-3. Data Sources
+## 3. Data Sources
 
 The FDIC monitors the financial institution for safety and soundness by monitoring several performance ratios and they upload this data to their website. Our team has downloaded FDIC Bank Failure Public Dataset which includes the quarterly financial data of individual banks and the bank failure labels. Our group has also collected macroeconomic data across the same time period and includes factors such as term spread, stock market growth, and real Gross Domestic Product (GDP) growth amongst others. 
 
 Our dataset is a collection of quarterly financial data of individual banks between the year of 2001 to 2015, which includes their financial information from, assets, loans, earnings and liquidity. The main y variable here is whether the bank failed in that quarter, which is binary. We also supplement this data with external macroeconomic factors, such as term spread, stock market growth and real GDP growth to reflect the prevailing market conditions.
 
-4. Preprocessing
+## 4. Preprocessing
 
-a. After calculation, we have the following features: 
+#### a. After calculation, we have the following features: 
 1) Quarterly Financial Data: 
 Total Assets (TA), Net Income to TA, Equity to TA, ROA, Core Deposits to TA
 Non-performing Loan (NPL) to Total Loan (TL), Loss Provision to_TL, Allowance for Loan and Lease Losses (ALLL) to TL
@@ -30,7 +30,7 @@ Non-performing Loan (NPL) to Total Loan (TL), Loss Provision to_TL, Allowance fo
 2) Quarterly Macro Data:
 Term Spread, Stock Mkt Growth, Real Gdp Growth, Unemployment Rate Change, Treasury Yield 3M, BBB Spread.
 
-b. Split the banks by the time of the bank failure. The banks that failed before 2011 will belong to the train dataset; the banks that failed between 2011 and 2012 will belong to the validation dataset; the banks that failed after 2012 will belong to the test dataset. 
+#### b. Split the banks by the time of the bank failure. The banks that failed before 2011 will belong to the train dataset; the banks that failed between 2011 and 2012 will belong to the validation dataset; the banks that failed after 2012 will belong to the test dataset. 
 
 As a result, we have 326 banks in train, 66 banks in validation and 70 banks in test. 
 
